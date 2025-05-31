@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { TitleProvider } from "shared/hooks";
+import { FingerprintProvider, TitleProvider } from "shared/hooks";
 import React from "react";
 import { ModalProvider } from "@openhotel/web-components";
 
@@ -7,7 +7,9 @@ export const ProvidersComponent = () => {
   return (
     <TitleProvider>
       <ModalProvider>
-        <Outlet />
+        <FingerprintProvider>
+          <Outlet />
+        </FingerprintProvider>
       </ModalProvider>
     </TitleProvider>
   );

@@ -684,6 +684,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@thumbmarkjs/thumbmarkjs@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "@thumbmarkjs/thumbmarkjs@npm:0.20.2"
+  checksum: 10c0/1fd6ec8854553d724a28803384d05812eded198739524f914329f5d2a23f580e968c1a05ba8378a9e7499dead3b9bfdfb9a4b76a45e1c4d8f3558851084f3026
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.20.5":
   version: 7.20.5
   resolution: "@types/babel__core@npm:7.20.5"
@@ -2062,6 +2069,7 @@ __metadata:
   dependencies:
     "@openhotel/web-components": "npm:0.3.2"
     "@rollup/plugin-alias": "npm:5.1.0"
+    "@thumbmarkjs/thumbmarkjs": "npm:^0.20.2"
     "@types/js-cookie": "npm:3.0.6"
     "@types/react": "npm:18.3.3"
     "@vitejs/plugin-react": "npm:^4.3.1"
