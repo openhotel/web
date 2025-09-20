@@ -6,6 +6,8 @@ import styles from "./header.module.scss";
 export const HeaderComponent: React.FC = () => {
   const { account, login, logout } = useAppSession();
 
+  if (account === undefined) return;
+
   if (!account)
     return (
       <>

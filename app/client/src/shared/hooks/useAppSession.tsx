@@ -11,7 +11,7 @@ import { ulid } from "ulidx";
 
 type AppSessionState = {
   getHeaders: () => Record<string, string>;
-  account: Account | null;
+  account: Account | null | undefined;
   login: () => Promise<void>;
   logout: () => void;
 };
@@ -28,7 +28,7 @@ export const AppSessionProvider: React.FunctionComponent<ProviderProps> = ({
   const { get, set, remove } = useCookies();
   const { fetch } = useApi();
 
-  const [account, setAccount] = useState<Account>(null);
+  const [account, setAccount] = useState<Account>(undefined);
 
   const params = new URLSearchParams(window.location.hash.replace("#", "?"));
   const $accountId = params.get("accountId");
@@ -85,6 +85,8 @@ export const AppSessionProvider: React.FunctionComponent<ProviderProps> = ({
           remove("account-token");
         }
       }
+
+      setAccount(null);
     })();
   }, [fetch, getHeaders, setAccount, remove, set, ulid]);
 
