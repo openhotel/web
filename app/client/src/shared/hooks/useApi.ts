@@ -1,11 +1,8 @@
 import { Request } from "shared/types";
 import { RequestMethod } from "../enums";
 import { useCallback } from "react";
-import { useFingerprint } from "./useFingerprint";
 
 export const useApi = () => {
-  const { fingerprint } = useFingerprint();
-
   const $fetch = useCallback(
     async ({
       method = RequestMethod.GET,
@@ -16,14 +13,12 @@ export const useApi = () => {
       rawResponse = false,
       preventReload = false,
     }: Request) => {
-      const response = await fetch(`/api/v1${pathname}`, {
+      const response = await fetch(`/api/${pathname}`, {
         method,
         headers: new Headers({
-          "Content-Type": "application/json",
-          fingerprint,
           ...headers,
         }),
-        body: body ? JSON.stringify(body) : undefined,
+        body,
         credentials: "include",
         cache: cache ? "default" : "no-store",
       }).then(async (data) => {
@@ -57,7 +52,7 @@ export const useApi = () => {
 
       if (rawResponse) return response;
 
-      if (!preventReload && response.status === 403) {
+      if (response.status === 403 && !preventReload) {
         globalThis.location.reload();
         return;
       }
@@ -66,7 +61,7 @@ export const useApi = () => {
 
       return response;
     },
-    [fingerprint],
+    [],
   );
 
   const getVersion = useCallback(async (): Promise<string> => {
@@ -74,7 +69,7 @@ export const useApi = () => {
       data: { version },
     } = await $fetch({
       method: RequestMethod.GET,
-      pathname: "/_/version",
+      pathname: "/version",
     });
     return version;
   }, [$fetch]);

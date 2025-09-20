@@ -22,8 +22,8 @@ export const CONFIG_DEFAULT: ConfigTypes = {
     filename: "database",
   },
   auth: {
-    enabled: true,
-    api: "http://localhost:2024",
-    licenseToken: "",
+    enabled: false,
+    appToken: "",
+    url: "http://localhost:2024",
   },
 };

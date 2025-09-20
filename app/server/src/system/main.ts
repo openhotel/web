@@ -2,10 +2,9 @@ import { api } from "./api.ts";
 import { ConfigTypes, Envs } from "shared/types/main.ts";
 import { getConfig as $getConfig, getDb, update, DbMutable } from "@oh/utils";
 import { CONFIG_DEFAULT } from "shared/consts/config.consts.ts";
-import { Migrations } from "modules/migrations/main.ts";
-import { backups } from "modules/system/backups.ts";
-import { auth } from "modules/system/auth.ts";
-import { accounts } from "modules/system/accounts.ts";
+import { Migrations } from "./migrations/main.ts";
+import { backups } from "./backups.ts";
+import { accounts } from "./accounts.ts";
 
 export const System = (() => {
   let $config: ConfigTypes;
@@ -15,7 +14,6 @@ export const System = (() => {
 
   const $api = api();
   const $backups = backups();
-  const $auth = auth();
   const $accounts = accounts();
   let $db: DbMutable;
 
@@ -64,7 +62,6 @@ export const System = (() => {
 
     if (isProduction) await $backups.load();
 
-    await $auth.load();
     $api.load(testMode);
   };
 
@@ -92,7 +89,6 @@ export const System = (() => {
     },
     api: $api,
     backups: $backups,
-    auth: $auth,
     accounts: $accounts,
   };
 })();

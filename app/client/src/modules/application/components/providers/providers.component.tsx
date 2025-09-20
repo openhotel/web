@@ -1,16 +1,16 @@
 import { Outlet } from "react-router";
-import { FingerprintProvider, TitleProvider } from "shared/hooks";
+import { TitleProvider, AppSessionProvider } from "shared/hooks";
 import React from "react";
 import { ModalProvider } from "@openhotel/web-components";
 
 export const ProvidersComponent = () => {
   return (
-    <TitleProvider>
-      <ModalProvider>
-        <FingerprintProvider>
+    <AppSessionProvider>
+      <TitleProvider>
+        <ModalProvider>
           <Outlet />
-        </FingerprintProvider>
-      </ModalProvider>
-    </TitleProvider>
+        </ModalProvider>
+      </TitleProvider>
+    </AppSessionProvider>
   );
 };
