@@ -40,6 +40,7 @@ export const SessionProvider: React.FunctionComponent<ProviderProps> = ({
 
     const { status, data } = await fetch({
       pathname: "auth/request",
+      preventReload: true,
     });
 
     switch (status) {
@@ -52,7 +53,7 @@ export const SessionProvider: React.FunctionComponent<ProviderProps> = ({
         redirectRef.current = data.redirectUrl;
         break;
     }
-  });
+  }, []);
 
   useEffect(() => {
     const token = $token ?? get("connection-token");
@@ -63,14 +64,19 @@ export const SessionProvider: React.FunctionComponent<ProviderProps> = ({
 
     (async () => {
       if (token) {
-        const { status, data } = await fetch({
-          pathname: "auth/user",
-          headers: {
-            token,
-          },
-        });
-        setAccount(data);
-        return;
+        try {
+          const { status, data } = await fetch({
+            pathname: "auth/user",
+            headers: {
+              token,
+            },
+            preventReload: true,
+          });
+          setAccount(data);
+          return;
+        } catch (e) {
+          remove("connection-token");
+        }
       }
 
       await makeRequest();
@@ -83,7 +89,6 @@ export const SessionProvider: React.FunctionComponent<ProviderProps> = ({
   }, [fetch]);
 
   const logout = useCallback(async () => {
-    console.log(account);
     if (!account) return;
 
     remove("connection-token");

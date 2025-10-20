@@ -5,7 +5,6 @@ import { useSession } from "shared/hooks";
 
 export const HeaderComponent: React.FC = () => {
   const { login, logout, account } = useSession();
-  console.log(account);
 
   if (!account)
     return (
